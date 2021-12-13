@@ -9,3 +9,4 @@
   *  [2021-12-13 11:51AM] Added acceleration; lint
   *  [2021-12-13 11:51AM] Removed tests
   *  [2021-12-13 12:02PM] Added DeviceMotionEvent.requestPermission
+  *  [2021-12-13 12:06PM] Added permissionState test

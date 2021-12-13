@@ -7,7 +7,6 @@ export default class HomePage extends Component {
       latLng: undefined,
       acceleration: undefined,
     };
-    window.addEventListener("devicemotion", this.onDeviceMotionEvent, false);
   }
 
   onGetCurrentPosition(position) {
@@ -22,7 +21,10 @@ export default class HomePage extends Component {
 
   async componentDidMount() {
     if (DeviceMotionEvent.requestPermission) {
-      await DeviceMotionEvent.requestPermission();
+      const permissionState = await DeviceMotionEvent.requestPermission();
+      if (permissionState === "granted") {
+        window.addEventListener("devicemotion", this.onDeviceMotionEvent, false);
+      } 
     }
 
     navigator.geolocation.getCurrentPosition(
