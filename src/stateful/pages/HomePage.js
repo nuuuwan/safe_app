@@ -28,6 +28,18 @@ export default class HomePage extends Component {
     this.setState({ acceleration });
   }
 
+  onGetDeviceMotionEventPermission(permissionState) {
+    this.setStatus(`permissionState = ${permissionState}`);
+
+    if (permissionState === "granted") {
+      window.addEventListener(
+        "devicemotion",
+        this.onDeviceMotionEvent,
+        false
+      );
+    }
+  }
+
   async componentDidMount() {
     this.setStatus("Checking for DeviceMotionEvent.requestPermission");
     if (
@@ -35,17 +47,7 @@ export default class HomePage extends Component {
       typeof DeviceMotionEvent.requestPermission === "function"
     ) {
       this.setStatus("Requesting Permission");
-      const permissionState = await DeviceMotionEvent.requestPermission();
-
-      this.setStatus(`permissionState = ${permissionState}`);
-
-      if (permissionState === "granted") {
-        window.addEventListener(
-          "devicemotion",
-          this.onDeviceMotionEvent,
-          false
-        );
-      }
+      DeviceMotionEvent.requestPermission().then(this.onGetDeviceMotionEventPermission);
     } else {
       this.setStatus("DeviceMotionEvent.requestPermission missing");
     }

@@ -12,3 +12,4 @@
   *  [2021-12-13 12:06PM] Added permissionState test
   *  [2021-12-13 12:08PM] Added VERSION info
   *  [2021-12-13 12:17PM] Added logging
+  *  [2021-12-13 12:22PM] Made onGetDeviceMotionEventPermission
