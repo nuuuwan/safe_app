@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-const VERSION = "version: 12.17pm";
+const VERSION = "version: 12.27pm";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -32,11 +32,7 @@ export default class HomePage extends Component {
     this.setStatus(`permissionState = ${permissionState}`);
 
     if (permissionState === "granted") {
-      window.addEventListener(
-        "devicemotion",
-        this.onDeviceMotionEvent,
-        false
-      );
+      window.addEventListener("devicemotion", this.onDeviceMotionEvent, false);
     }
   }
 
@@ -47,7 +43,9 @@ export default class HomePage extends Component {
       typeof DeviceMotionEvent.requestPermission === "function"
     ) {
       this.setStatus("Requesting Permission");
-      DeviceMotionEvent.requestPermission().then(this.onGetDeviceMotionEventPermission);
+      DeviceMotionEvent.requestPermission()
+        .then(this.onGetDeviceMotionEventPermission)
+        .catch(this.setStatus);
     } else {
       this.setStatus("DeviceMotionEvent.requestPermission missing");
     }

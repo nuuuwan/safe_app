@@ -13,3 +13,4 @@
   *  [2021-12-13 12:08PM] Added VERSION info
   *  [2021-12-13 12:17PM] Added logging
   *  [2021-12-13 12:22PM] Made onGetDeviceMotionEventPermission
+  *  [2021-12-13 12:27PM] Added more logging
