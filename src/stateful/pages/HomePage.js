@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-const VERSION = 'Added persmission state check';
+const VERSION = "version: 12.17pm";
 
 export default class HomePage extends Component {
   constructor(props) {
@@ -8,7 +8,14 @@ export default class HomePage extends Component {
     this.state = {
       latLng: undefined,
       acceleration: undefined,
+      statusList: [],
     };
+  }
+
+  setStatus(status) {
+    let newStatusList = this.state.statusList;
+    newStatusList.push(status);
+    this.setState({ newStatusList });
   }
 
   onGetCurrentPosition(position) {
@@ -22,8 +29,16 @@ export default class HomePage extends Component {
   }
 
   async componentDidMount() {
-    if (DeviceMotionEvent.requestPermission) {
+    this.setStatus("Checking for DeviceMotionEvent.requestPermission");
+    if (
+      DeviceMotionEvent &&
+      typeof DeviceMotionEvent.requestPermission === "function"
+    ) {
+      this.setStatus("Requesting Permission");
       const permissionState = await DeviceMotionEvent.requestPermission();
+
+      this.setStatus(`permissionState = ${permissionState}`);
+
       if (permissionState === "granted") {
         window.addEventListener(
           "devicemotion",
@@ -31,6 +46,8 @@ export default class HomePage extends Component {
           false
         );
       }
+    } else {
+      this.setStatus("DeviceMotionEvent.requestPermission missing");
     }
 
     navigator.geolocation.getCurrentPosition(
@@ -39,11 +56,19 @@ export default class HomePage extends Component {
   }
 
   render() {
-    const { latLng, acceleration } = this.state;
+    const { latLng, acceleration, statusList } = this.state;
     return (
       <div>
+        <p>
+          <i>{VERSION}</i>
+        </p>
+
         <h1>Safe App</h1>
-        <p><i>{VERSION}</i></p>
+        <ul>
+          {statusList.map(function (status, i) {
+            return <li key={`li-status-${i}`}>{status}</li>;
+          })}
+        </ul>
         <h2>Location</h2>
         <p>{JSON.stringify(latLng)}</p>
         <h2>Acceleration</h2>
