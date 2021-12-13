@@ -21,6 +21,10 @@ export default class HomePage extends Component {
   }
 
   async componentDidMount() {
+    if (DeviceMotionEvent.requestPermission) {
+      await DeviceMotionEvent.requestPermission();
+    }
+
     navigator.geolocation.getCurrentPosition(
       this.onGetCurrentPosition.bind(this)
     );
