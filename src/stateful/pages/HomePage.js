@@ -1,5 +1,7 @@
 import { Component } from "react";
 
+const VERSION = 'Added persmission state check';
+
 export default class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -23,8 +25,12 @@ export default class HomePage extends Component {
     if (DeviceMotionEvent.requestPermission) {
       const permissionState = await DeviceMotionEvent.requestPermission();
       if (permissionState === "granted") {
-        window.addEventListener("devicemotion", this.onDeviceMotionEvent, false);
-      } 
+        window.addEventListener(
+          "devicemotion",
+          this.onDeviceMotionEvent,
+          false
+        );
+      }
     }
 
     navigator.geolocation.getCurrentPosition(
@@ -37,6 +43,7 @@ export default class HomePage extends Component {
     return (
       <div>
         <h1>Safe App</h1>
+        <p><i>{VERSION}</i></p>
         <h2>Location</h2>
         <p>{JSON.stringify(latLng)}</p>
         <h2>Acceleration</h2>
