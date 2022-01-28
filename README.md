@@ -15,3 +15,4 @@
   *  [2021-12-13 12:22PM] Made onGetDeviceMotionEventPermission
   *  [2021-12-13 12:27PM] Added more logging
   *  [2021-12-13 12:35PM] Added binds
+  *  [2022-01-28 07:40PM] Basic Files with GeoLocation

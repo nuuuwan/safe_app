@@ -44,9 +44,8 @@ export default class HomePage extends Component {
       this.setStatus("Requesting Permission");
 
       DeviceMotionEvent.requestPermission()
-        .then(this.onGetDeviceMotionEventPermission.bind(this))
-        .catch(this.setStatus.bind(this));
-
+        .then(this.onGetDeviceMotionEventPermission)
+        .catch(this.setStatus);
     } else {
       this.setStatus("DeviceMotionEvent.requestPermission missing");
     }
